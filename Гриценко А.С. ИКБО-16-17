@@ -1,0 +1,296 @@
+# praktika3ikbo-16-17
+Исходный код:
+
+_________________________________________
+Задание 1
+
+package javaapplication1;
+
+
+public abstract class Shape {
+    protected String color;
+    protected boolean filled;
+    
+    Shape() {
+        color = "null";
+        filled = false;
+    }
+        
+    Shape(String color, boolean filled) {
+        this.color = color;
+        this.filled = filled;
+    }
+    
+    public String getColor() {
+        return color;
+    }
+    
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    public boolean isFilled() {
+        return filled;
+    }
+    
+    public void setFilled(boolean filled) {
+        this.filled = filled;
+    }
+    
+    public abstract double getArea();
+    public abstract double getPerimeter();
+    public abstract String toString();
+    
+}
+
+class Circle extends Shape {
+    protected double radius;
+    Circle() {
+        radius = 0;
+    }
+    
+    Circle(double radius) {
+        this.radius = radius;
+    }
+    
+    Circle(double radius, String color, boolean filled) {
+        this.radius = radius;
+        this.color = color;
+        this.filled = filled;
+    }
+    
+    public double getRadius() {
+        return radius;
+    }
+    
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+    
+    public double getArea() {
+        return radius*radius*Math.PI;
+    }
+    
+    public double getPerimeter() {
+        return radius*2*Math.PI;
+    }
+    
+    public String toString() {
+        return  "Круг. Радиус: "+this.radius+" Цвет: "+this.color+" Заполнен: "+this.filled + " Площадь: " + this.getArea() + "Периметр: " + this.getPerimeter();
+    }
+}
+
+class Rectangle extends Shape {
+    protected double width;
+    protected double length;
+
+    Rectangle() {
+        width = 0;
+        length = 0;
+    }
+    
+    Rectangle(double width, double length) {
+        this.width = width;
+        this.length = length;
+    }
+    
+    Rectangle(double width, double length, String color, boolean filled) {
+        this.width = width;
+        this.length = length;
+        this.color = color;
+        this.filled = filled;
+    }
+    
+    public double getWidth() {
+        return width;
+    }
+    
+    public void setWidth(double width) {
+        this.width = width;
+    }
+    
+    public double getLength() {
+        return length;
+    }
+    
+    public void setLength() {
+        this.length = length;
+    }
+    
+    public double getArea() {
+        return length*width;
+    }
+    
+    public double getPerimeter() {
+        return (length+width)*2;
+    }
+    
+    public String toString() {
+        return  "Прямоугольник. Длина: "+this.length+ " Ширина: " + this.width + "Цвет: "+this.color+" Заполнен: "+this.filled  + " Площадь: " + this.getArea() + "Периметр: " + this.getPerimeter();
+    }
+
+}
+
+class Square extends Rectangle {
+    protected double side;
+    Square() {
+        side = 0;
+    }
+    
+    Square(double side) {
+        this.side = side;
+    }
+    
+    Square(double side, String color, boolean filled) {
+        this.side = side;
+        this.color = color;
+        this.filled = filled;
+    }
+    
+        public double getArea() {
+        return side*side;
+    }
+    
+    public double getPerimeter() {
+        return side*4;
+    }
+    
+    public String toString() {
+        return  "Квадрат. Сторона: "+this.side + "Цвет: "+this.color+" Заполнен: "+this.filled + " Площадь: " + this.getArea() + "Периметр: " + this.getPerimeter();
+    }
+}
+
+
+
+package javaapplication1;
+
+public class JavaApplication1 {
+    
+    public static void main(String[] args) {
+        //Shape s1 = new Shape("blue", false); // так как Shape абстрактный - объект не может быть создан
+        Circle c1 = new Circle(1,"blue",true);
+        c1.setColor("red");
+        c1.setFilled(false);
+        c1.setRadius(2.0);
+        System.out.println(c1);
+        
+        Square sq = new Square(5,"purple",true);
+        System.out.println(sq);
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________________
+Задание 2
+
+
+Файл Movable.java
+
+package javaapplication1;
+
+public interface Movable {
+    public void moveUp();
+    public void moveDown();
+    public void moveLeft();
+    public void moveRight();
+}
+
+
+Файл MovablePoint.java
+
+
+
+Файл movablepoint.java
+
+package javaapplication1;
+
+public class MovablePoint implements Movable {
+    protected int x;
+    protected int y;
+    protected int xSpeed;
+    protected int ySpeed;
+    
+    MovablePoint(int x, int y, int xSpeed, int ySpeed) {
+        this.x = x;
+        this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+    }
+    
+    public void moveUp() {
+        y = (y + 1)*ySpeed;
+    }
+    
+    public void moveDown() {
+        y = (y-1) *ySpeed;
+    }
+    
+    public void moveLeft() {
+        x = (x-1) *xSpeed;
+    }
+    
+    public void moveRight() {
+        x = (x+1) *xSpeed;
+    }
+    
+    @Override
+    public String toString() {
+        return "MovablePoint. x = " + this.x + " y = " + this.y + " xSpeed = " +this.xSpeed + " ySpeed = " +this.ySpeed;
+    }
+     
+}
+
+
+Файл MovableCircle.java
+
+package javaapplication1;
+
+public class MovableCircle extends MovablePoint{
+    private int radius;
+
+    public MovableCircle(int radius, int x, int y, int xSpeed, int ySpeed) {
+        super(x, y, xSpeed, ySpeed);
+        this.radius = radius;
+    }    
+    
+    public void moveUp() {
+        y = (y+1)*ySpeed;
+        radius = (radius+1)*ySpeed;
+    }
+    
+    public void moveDown() {
+        y = (y-1) *ySpeed;
+        radius = (radius-1)*ySpeed;
+    }
+    
+    public void moveLeft() {
+        x = (x-1) *xSpeed;
+        radius = (radius-1)*xSpeed;
+    }
+    
+    public void moveRight() {
+        x = (x+1) *xSpeed;
+        radius = (radius+1)*xSpeed;
+    }
+    
+    @Override
+    public String toString() {
+        return "MovableCircle. x = " + this.x + " y = " + this.y + " xSpeed = " +this.xSpeed + " ySpeed = " +this.ySpeed;
+    }
+     
+}
