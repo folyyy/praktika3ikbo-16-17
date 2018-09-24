@@ -167,7 +167,7 @@ package javaapplication1;
 public class JavaApplication1 {
     
     public static void main(String[] args) {
-        //Shape s1 = new Shape("blue", false); // так как Shape абстрактный - объект не может быть создан
+        //Shape s1 = new Shape("blue", false); // так как Shape абстрактный - он не может быть вызван
         Circle c1 = new Circle(1,"blue",true);
         c1.setColor("red");
         c1.setFilled(false);
@@ -196,7 +196,7 @@ public class JavaApplication1 {
 
 
 __________________________________
-Задание 2
+Задание 2-1
 
 
 Файл Movable.java
@@ -209,10 +209,6 @@ public interface Movable {
     public void moveLeft();
     public void moveRight();
 }
-
-
-Файл MovablePoint.java
-
 
 
 Файл movablepoint.java
@@ -294,3 +290,60 @@ public class MovableCircle extends MovablePoint{
     }
      
 }
+
+
+
+______________________________________________
+Задание 2-2
+
+package javaapplication1;
+
+
+public class MovableRectangle extends MovablePoint {
+    private MovablePoint topLeft;
+    private MovablePoint bottomRight;
+    public MovableRectangle(int x1, int x2, int y1, int y2,int x, int y, int xSpeed, int ySpeed) {
+        super(x, y, xSpeed, ySpeed);
+        this.topLeft.x = x1;
+        this.topLeft.y = y1;
+        this.bottomRight.x = x2;
+        this.bottomRight.y = y2;
+        this.topLeft.xSpeed = xSpeed;
+        this.topLeft.ySpeed = ySpeed;
+        this.bottomRight.xSpeed = xSpeed;
+        this.bottomRight.ySpeed = ySpeed;
+    }
+    
+    @Override
+    public String toString() {
+        return "MovableRectangle. Topleft: x = " + this.topLeft.x + " y = " + this.topLeft.y + " xSpeed = " +this.topLeft.xSpeed + " ySpeed = " +this.topLeft.ySpeed + " BottomRight: x = " + this.bottomRight.x + " y = " + this.bottomRight.y + " xSpeed = " + this.bottomRight.xSpeed + " ySpeed = " + this.bottomRight.ySpeed;
+     }
+    
+    public void moveUp() {
+        topLeft.y = (topLeft.y + 1)*topLeft.ySpeed;
+        bottomRight.y = (bottomRight.y + 1) * bottomRight.ySpeed;
+    }
+    
+    public void moveDown() {
+        topLeft.y = (topLeft.y - 1)*topLeft.ySpeed;
+        bottomRight.y = (bottomRight.y - 1) * bottomRight.ySpeed;
+    }
+    
+    public void moveLeft() {
+        topLeft.x = (topLeft.x - 1)*topLeft.xSpeed;
+        bottomRight.x = (bottomRight.x + 1) * bottomRight.xSpeed;
+    }
+    
+    public void moveRight() {
+        topLeft.x = (topLeft.x + 1)*topLeft.xSpeed;
+        bottomRight.x = (bottomRight.x + 1) * bottomRight.xSpeed;
+    }
+    
+    public void checkCornerSpeed() {
+        if (topLeft.xSpeed == bottomRight.xSpeed && topLeft.ySpeed == bottomRight.ySpeed)
+            System.out.println("Две точки имеют разные скорости!");
+        else System.out.println("Две точки имеют одну скорость, все хорошо.");
+    }
+    
+}
+
