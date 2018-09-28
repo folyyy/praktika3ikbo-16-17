@@ -341,8 +341,8 @@ public class MovableRectangle extends MovablePoint {
     
     public void checkCornerSpeed() {
         if (topLeft.xSpeed == bottomRight.xSpeed && topLeft.ySpeed == bottomRight.ySpeed)
-            System.out.println("Две точки имеют разные скорости!");
-        else System.out.println("Две точки имеют одну скорость, все хорошо.");
+            System.out.println("Две точки имеют одну скорость, все хорошо.");
+        else System.out.println("Две точки имеют разную скорость!.");
     }
     
 }
